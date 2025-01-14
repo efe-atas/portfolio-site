@@ -5,7 +5,7 @@ export const featuredProjects = [
         tech: ["YOLO", "Tensorflow", "Python"],
         demo: "https://github.com/efe-atas/portfolio",
         image: "images/projects/cattle.jpeg",
-        category: "frontend"
+        category: "backend"
     },
     {
         name: "Cattle Management System",
