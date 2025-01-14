@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Arka plan -->
+    <rect width="800" height="600" fill="#1a1a1a"/>
+    
+    <!-- Başlık -->
+    <text x="400" y="50" text-anchor="middle" fill="white" font-family="Arial" font-size="24" font-weight="bold">
+        Transformer Mimarisi
+    </text>
+    
+    <!-- Encoder -->
+    <g transform="translate(100, 100)">
+        <rect width="250" height="400" rx="10" fill="#2196F3" opacity="0.8"/>
+        <text x="125" y="40" text-anchor="middle" fill="white" font-family="Arial" font-size="20">Kodlayıcı</text>
+        
+        <!-- Multi-Head Attention -->
+        <g transform="translate(25, 80)">
+            <rect width="200" height="80" rx="5" fill="#4CAF50" opacity="0.8"/>
+            <text x="100" y="30" text-anchor="middle" fill="white" font-family="Arial" font-size="14">Çok Başlı Dikkat</text>
+            <!-- Attention heads -->
+            <circle cx="60" cy="50" r="10" fill="white"/>
+            <circle cx="100" cy="50" r="10" fill="white"/>
+            <circle cx="140" cy="50" r="10" fill="white"/>
+        </g>
+        
+        <!-- Add & Norm -->
+        <g transform="translate(25, 180)">
+            <rect width="200" height="60" rx="5" fill="#9C27B0" opacity="0.8"/>
+            <text x="100" y="35" text-anchor="middle" fill="white" font-family="Arial" font-size="14">Toplama ve Normalizasyon</text>
+        </g>
+        
+        <!-- Feed Forward -->
+        <g transform="translate(25, 260)">
+            <rect width="200" height="60" rx="5" fill="#F44336" opacity="0.8"/>
+            <text x="100" y="35" text-anchor="middle" fill="white" font-family="Arial" font-size="14">İleri Beslemeli Ağ</text>
+        </g>
+        
+        <!-- Add & Norm -->
+        <g transform="translate(25, 340)">
+            <rect width="200" height="60" rx="5" fill="#9C27B0" opacity="0.8"/>
+            <text x="100" y="35" text-anchor="middle" fill="white" font-family="Arial" font-size="14">Toplama ve Normalizasyon</text>
+        </g>
+    </g>
+    
+    <!-- Decoder -->
+    <g transform="translate(450, 100)">
+        <rect width="250" height="400" rx="10" fill="#FF9800" opacity="0.8"/>
+        <text x="125" y="40" text-anchor="middle" fill="white" font-family="Arial" font-size="20">Kod Çözücü</text>
+        
+        <!-- Masked Multi-Head Attention -->
+        <g transform="translate(25, 80)">
+            <rect width="200" height="80" rx="5" fill="#4CAF50" opacity="0.8"/>
+            <text x="100" y="30" text-anchor="middle" fill="white" font-family="Arial" font-size="14">Maskelenmiş Çok Başlı Dikkat</text>
+            <!-- Attention heads -->
+            <circle cx="60" cy="50" r="10" fill="white"/>
+            <circle cx="100" cy="50" r="10" fill="white"/>
+            <circle cx="140" cy="50" r="10" fill="white"/>
+        </g>
+        
+        <!-- Add & Norm -->
+        <g transform="translate(25, 180)">
+            <rect width="200" height="60" rx="5" fill="#9C27B0" opacity="0.8"/>
+            <text x="100" y="35" text-anchor="middle" fill="white" font-family="Arial" font-size="14">Toplama ve Normalizasyon</text>
+        </g>
+        
+        <!-- Cross Attention -->
+        <g transform="translate(25, 260)">
+            <rect width="200" height="60" rx="5" fill="#F44336" opacity="0.8"/>
+            <text x="100" y="35" text-anchor="middle" fill="white" font-family="Arial" font-size="14">Çapraz Dikkat</text>
+        </g>
+        
+        <!-- Add & Norm -->
+        <g transform="translate(25, 340)">
+            <rect width="200" height="60" rx="5" fill="#9C27B0" opacity="0.8"/>
+            <text x="100" y="35" text-anchor="middle" fill="white" font-family="Arial" font-size="14">Toplama ve Normalizasyon</text>
+        </g>
+    </g>
+    
+    <!-- Bağlantılar -->
+    <g stroke="white" stroke-width="2" fill="none">
+        <!-- Encoder içi bağlantılar -->
+        <path d="M125,260 L125,280"/>
+        <path d="M125,340 L125,360"/>
+        <path d="M125,420 L125,440"/>
+        
+        <!-- Decoder içi bağlantılar -->
+        <path d="M475,260 L475,280"/>
+        <path d="M475,340 L475,360"/>
+        <path d="M475,420 L475,440"/>
+        
+        <!-- Encoder-Decoder arası bağlantı -->
+        <path d="M350,300 L450,300" stroke-dasharray="5,5"/>
+    </g>
+    
+    <!-- Açıklamalar -->
+    <g transform="translate(100, 520)">
+        <text x="0" y="0" fill="white" font-family="Arial" font-size="14">Giriş Dizisi</text>
+        <text x="350" y="0" fill="white" font-family="Arial" font-size="14">Çıkış Dizisi</text>
+        
+        <path d="M0,20 L100,20" stroke="white" stroke-width="2"/>
+        <path d="M350,20 L450,20" stroke="white" stroke-width="2"/>
+    </g>
+</svg> 

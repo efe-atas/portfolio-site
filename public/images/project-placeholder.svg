@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+    <!-- Arka plan -->
+    <rect width="800" height="400" fill="#1a1a1a"/>
+    
+    <!-- Kod simgesi -->
+    <g transform="translate(350, 150)">
+        <path d="M30,0 L0,30 L30,60 M70,0 L100,30 L70,60" 
+              stroke="#4a5568" 
+              stroke-width="4" 
+              fill="none"/>
+    </g>
+    
+    <!-- Metin -->
+    <text x="400" 
+          y="250" 
+          text-anchor="middle" 
+          fill="#4a5568" 
+          font-family="Arial" 
+          font-size="16">
+        Görsel Bulunamadı
+    </text>
+</svg> 

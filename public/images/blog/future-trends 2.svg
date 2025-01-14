@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Arka plan -->
+    <rect width="800" height="600" fill="#1a1a1a"/>
+    
+    <!-- Başlık -->
+    <text x="400" y="50" text-anchor="middle" fill="white" font-family="Arial" font-size="24" font-weight="bold">
+        Yapay Zeka Gelecek Trendleri
+    </text>
+    
+    <!-- Açıklanabilir AI -->
+    <g transform="translate(100, 150)">
+        <rect width="250" height="150" rx="10" fill="#2196F3" opacity="0.8"/>
+        <text x="125" y="40" text-anchor="middle" fill="white" font-family="Arial" font-size="18">Açıklanabilir AI</text>
+        <text x="125" y="80" text-anchor="middle" fill="white" font-family="Arial" font-size="14">
+            Şeffaf ve anlaşılır AI sistemleri
+        </text>
+        <path d="M50,100 L200,100" stroke="white" stroke-width="2"/>
+        <circle cx="125" cy="120" r="15" fill="white"/>
+        <text x="125" y="125" text-anchor="middle" fill="#2196F3" font-size="16">?</text>
+    </g>
+    
+    <!-- Federe Öğrenme -->
+    <g transform="translate(450, 150)">
+        <rect width="250" height="150" rx="10" fill="#4CAF50" opacity="0.8"/>
+        <text x="125" y="40" text-anchor="middle" fill="white" font-family="Arial" font-size="18">Federe Öğrenme</text>
+        <text x="125" y="80" text-anchor="middle" fill="white" font-family="Arial" font-size="14">
+            Dağıtık veri gizliliği
+        </text>
+        <!-- Bağlantılı nodlar -->
+        <circle cx="85" cy="120" r="10" fill="white"/>
+        <circle cx="125" cy="120" r="10" fill="white"/>
+        <circle cx="165" cy="120" r="10" fill="white"/>
+        <path d="M95,120 L115,120 M135,120 L155,120" stroke="#4CAF50" stroke-width="2"/>
+    </g>
+    
+    <!-- AutoML -->
+    <g transform="translate(100, 350)">
+        <rect width="250" height="150" rx="10" fill="#9C27B0" opacity="0.8"/>
+        <text x="125" y="40" text-anchor="middle" fill="white" font-family="Arial" font-size="18">AutoML</text>
+        <text x="125" y="80" text-anchor="middle" fill="white" font-family="Arial" font-size="14">
+            Otomatik model optimizasyonu
+        </text>
+        <!-- Dişli simgesi -->
+        <path d="M125,120 m-20,0 a20,20 0 1,0 40,0 a20,20 0 1,0 -40,0" fill="white"/>
+        <path d="M125,110 L125,130 M115,120 L135,120" stroke="#9C27B0" stroke-width="2"/>
+    </g>
+    
+    <!-- Edge AI -->
+    <g transform="translate(450, 350)">
+        <rect width="250" height="150" rx="10" fill="#F44336" opacity="0.8"/>
+        <text x="125" y="40" text-anchor="middle" fill="white" font-family="Arial" font-size="18">Edge AI</text>
+        <text x="125" y="80" text-anchor="middle" fill="white" font-family="Arial" font-size="14">
+            Uç cihazlarda AI
+        </text>
+        <!-- Cihaz simgesi -->
+        <rect x="100" y="100" width="50" height="40" rx="5" fill="white"/>
+        <circle cx="125" cy="115" r="5" fill="#F44336"/>
+        <path d="M115,125 L135,125" stroke="#F44336" stroke-width="2"/>
+    </g>
+    
+    <!-- Bağlantı çizgileri -->
+    <g stroke="#666" stroke-width="2" stroke-dasharray="5,5">
+        <path d="M350,225 L450,225"/>
+        <path d="M350,425 L450,425"/>
+        <path d="M225,300 L225,350"/>
+        <path d="M575,300 L575,350"/>
+    </g>
+    
+    <!-- Merkez daire -->
+    <circle cx="400" cy="300" r="30" fill="#FFD700" opacity="0.8"/>
+    <text x="400" y="305" text-anchor="middle" fill="white" font-family="Arial" font-size="14">AI</text>
+</svg> 
