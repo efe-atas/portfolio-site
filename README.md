@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+# Kişisel Portfolyo Sitesi
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Modern ve minimalist tasarıma sahip kişisel portfolyo sitesi. React ve Tailwind CSS kullanılarak geliştirildi.
 
-## Available Scripts
+## 🚀 Özellikler
 
-In the project directory, you can run:
+- ⚡️ Vite + React
+- 🎨 Tailwind CSS ile modern tasarım
+- 🌙 Dark/Light mod desteği
+- 📱 Tam responsive tasarım
+- ⚡ Framer Motion ile akıcı animasyonlar
+- 🎯 SEO optimizasyonu
+- 📱 Mobil uygulama showcase alanı
+- 💼 Proje portfolyosu
+- 📝 Blog bölümü
 
-### `npm start`
+## 🛠️ Teknolojiler
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [React](https://reactjs.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [React Router](https://reactrouter.com/)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🚀 Kurulum
 
-### `npm test`
+1. Projeyi klonlayın:
+\`\`\`bash
+git clone https://github.com/efe-atas/portfolio-site.git
+cd portfolio-site
+\`\`\`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Bağımlılıkları yükleyin:
+\`\`\`bash
+npm install
+\`\`\`
 
-### `npm run build`
+3. Geliştirme sunucusunu başlatın:
+\`\`\`bash
+npm run dev
+\`\`\`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. Production build için:
+\`\`\`bash
+npm run build
+\`\`\`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 📁 Proje Yapısı
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+\`\`\`
+portfolio-site/
+├── public/             # Statik dosyalar
+│   ├── components/     # React bileşenleri
+│   ├── pages/         # Sayfa bileşenleri
+│   ├── context/       # Context API
+│   ├── data/          # Statik veriler
+│   ├── hooks/         # Custom hooks
+│   └── utils/         # Yardımcı fonksiyonlar
+├── .gitignore
+├── package.json
+├── README.md
+├── vite.config.js
+└── tailwind.config.js
+\`\`\`
 
-### `npm run eject`
+## 🎨 Özelleştirme
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. `src/data/` klasöründeki dosyaları düzenleyerek içerikleri güncelleyebilirsiniz
+2. Renk şemasını `tailwind.config.js` dosyasından özelleştirebilirsiniz
+3. Dark/Light mod ayarlarını `src/context/ThemeContext.js` üzerinden yönetebilirsiniz
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 📝 Lisans
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakınız.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🤝 İletişim
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+İsmail Efe Ataş - [LinkedIn](https://linkedin.com/in/efeatas) - [GitHub](https://github.com/efe-atas)

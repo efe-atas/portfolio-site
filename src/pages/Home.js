@@ -248,75 +248,115 @@ const Home = () => {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: index * 0.1 }}
+                                    whileHover={{ scale: 1.02 }}
                                     className="relative"
                                 >
-                                    {/* Phone Frame */}
-                                    <div className="relative mx-auto w-[380px] h-[780px]">
-                                        {/* Phone Template */}
-                                        <img 
-                                            src="/images/templates/phone-template.png"
-                                            alt="Phone frame"
-                                            className="absolute inset-0 w-full h-full z-20 pointer-events-none"
+                                    {/* App Screenshot */}
+                                    <motion.div 
+                                        className="relative aspect-[9/19] w-full"
+                                        initial={{ y: 20 }}
+                                        animate={{ y: 0 }}
+                                        transition={{ 
+                                            type: "spring",
+                                            stiffness: 300,
+                                            damping: 20
+                                        }}
+                                    >
+                                        <motion.img
+                                            src={app.screenshots[0]}
+                                            alt={`${app.name} screenshot`}
+                                            className="w-full h-full object-contain"
+                                            whileHover={{ scale: 1.05 }}
+                                            transition={{ 
+                                                type: "spring",
+                                                stiffness: 300,
+                                                damping: 20
+                                            }}
                                         />
-                                        
-                                        {/* App Content */}
-                                        <div className="absolute top-[28px] left-[32px] right-[32px] bottom-[22px] overflow-hidden rounded-[42px]">
-                                            {/* App Screenshot */}
-                                            <div className="relative w-full h-full bg-black">
-                                                <img
-                                                    src={app.screenshots[0]}
-                                                    alt={`${app.name} screenshot`}
-                                                    className="w-full h-full object-contain"
-                                                />
 
-                                                {/* App Info Overlay */}
-                                                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
-                                                    <h3 className="text-white text-xl font-bold mb-3">{app.name}</h3>
-                                                    <p className="text-gray-200 text-base mb-4">{app.description}</p>
-                                                    <div className="flex flex-wrap gap-2 mb-4">
-                                                        {app.tech.map((tech, techIndex) => (
-                                                            <span
-                                                                key={techIndex}
-                                                                className="px-3 py-1.5 text-sm rounded-full bg-red-500/80 text-white"
-                                                            >
-                                                                {tech}
-                                                            </span>
-                                                        ))}
-                                                    </div>
-                                                    <div className="flex items-center gap-4">
-                                                        {app.appStore && (
-                                                            <a
-                                                                href={app.appStore}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className="hover:opacity-80 transition-opacity"
-                                                            >
-                                                                <img 
-                                                                    src="/images/store-badges/app-store-badge.svg" 
-                                                                    alt="Download on the App Store" 
-                                                                    className="h-10"
-                                                                />
-                                                            </a>
-                                                        )}
-                                                        {app.playStore && (
-                                                            <a
-                                                                href={app.playStore}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className="hover:opacity-80 transition-opacity"
-                                                            >
-                                                                <img 
-                                                                    src="/images/store-badges/google-play-badge.png" 
-                                                                    alt="Get it on Google Play" 
-                                                                    className="h-14"
-                                                                />
-                                                            </a>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        {/* App Info Overlay */}
+                                        <motion.div 
+                                            className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent"
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.2 }}
+                                        >
+                                            <motion.h3 
+                                                className="text-white text-xl font-bold mb-3"
+                                                initial={{ opacity: 0, x: -20 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: 0.3 }}
+                                            >
+                                                {app.name}
+                                            </motion.h3>
+                                            <motion.p 
+                                                className="text-gray-200 text-base mb-4"
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                transition={{ delay: 0.4 }}
+                                            >
+                                                {app.description}
+                                            </motion.p>
+                                            <motion.div 
+                                                className="flex flex-wrap gap-2 mb-4"
+                                                initial={{ opacity: 0, y: 10 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                transition={{ delay: 0.5 }}
+                                            >
+                                                {app.tech.map((tech, techIndex) => (
+                                                    <motion.span
+                                                        key={techIndex}
+                                                        className="px-3 py-1.5 text-sm rounded-full bg-red-500/80 text-white"
+                                                        whileHover={{ scale: 1.1 }}
+                                                        initial={{ opacity: 0, x: -10 }}
+                                                        animate={{ opacity: 1, x: 0 }}
+                                                        transition={{ delay: 0.5 + (techIndex * 0.1) }}
+                                                    >
+                                                        {tech}
+                                                    </motion.span>
+                                                ))}
+                                            </motion.div>
+                                            <motion.div 
+                                                className="flex items-center gap-4"
+                                                initial={{ opacity: 0, y: 20 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                transition={{ delay: 0.6 }}
+                                            >
+                                                {app.appStore && (
+                                                    <motion.a
+                                                        href={app.appStore}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="hover:opacity-80 transition-opacity"
+                                                        whileHover={{ scale: 1.1 }}
+                                                        whileTap={{ scale: 0.95 }}
+                                                    >
+                                                        <img 
+                                                            src="/images/store-badges/app-store-badge.svg" 
+                                                            alt="Download on the App Store" 
+                                                            className="h-9"
+                                                        />
+                                                    </motion.a>
+                                                )}
+                                                {app.playStore && (
+                                                    <motion.a
+                                                        href={app.playStore}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="hover:opacity-80 transition-opacity"
+                                                        whileHover={{ scale: 1.1 }}
+                                                        whileTap={{ scale: 0.95 }}
+                                                    >
+                                                        <img 
+                                                            src="/images/store-badges/google-play-badge.png" 
+                                                            alt="Get it on Google Play" 
+                                                            className="h-12"
+                                                        />
+                                                    </motion.a>
+                                                )}
+                                            </motion.div>
+                                        </motion.div>
+                                    </motion.div>
                                 </motion.div>
                             ))}
                         </div>

@@ -36,9 +36,9 @@ export const myApps = [
         playStore: "https://play.google.com/store/apps/details?id=123",
         image: "images/apps/ai-chat/icon.png",
         screenshots: [
-            "/images/apps/ai-chat/sss.jpeg",
-            "/images/apps/ai-chat/screenshot-2.png",
-            "/images/apps/ai-chat/screenshot-3.png"
+            "/images/apps/ai-chat/ss2.png",
+            "/images/apps/ai-chat/ss.png",
+            "/images/apps/ai-chat/ss.png"
         ]
     },
     {
@@ -49,7 +49,7 @@ export const myApps = [
         playStore: "https://play.google.com/store/apps/details?id=456",
         image: "images/apps/fitness/icon.png",
         screenshots: [
-            "/images/apps/ai-chat/sss.jpeg",
+            "/images/apps/ai-chat/ss2.png",
             "/images/apps/fitness/screenshot-2.png",
             "/images/apps/fitness/screenshot-3.png"
         ]
