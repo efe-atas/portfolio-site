@@ -15,8 +15,8 @@ const Contact = () => {
         },
         {
             title: "Phone",
-            value: "+90 541 839 0686",
-            link: "tel:+905418390686"
+            value: "+90 111 111 11 11",
+            link: "tel:+901111111111"
         },
         {
             title: "Location",
