@@ -1,28 +1,29 @@
 export const featuredProjects = [
     {
-        name: "Cattle Management System",
-        description: "I worked on TUBITAK STAR project. I used YOLO, Tensorflow and Python to build this project.",
-        tech: ["YOLO", "Tensorflow", "Python"],
-        demo: "https://github.com/efe-atas/portfolio",
-        image: "images/projects/cattle.jpeg",
-        category: "backend"
+        name: "TEDU Scheduler",
+        description: "TEDU Scheduler is a web application that allows you to schedule your classes and exams using React, Tailwind CSS and JavaScript.",
+        tech: ["React", "Tailwind CSS", "JavaScript"],
+        demo: "https://secbegenal.vercel.app/",
+        image: "images/projects/scheduler.png",
+        category: "fullstack",
+        github: "https://github.com/efe-atas/secbegenal"
     },
     {
         name: "Cattle Management System",
-        description: "Modern ve minimalist kişisel portfolyo sitesi. React, Tailwind CSS ve dark mode desteği ile geliştirildi.",
-        tech: ["React", "Tailwind CSS", "JavaScript"],
+        description: "Currently working on this project. It is an AI based system that uses YOLO, Tensorflow and Python to build this project.",
+        tech: ["YOLO", "Tensorflow", "Python"],
         github: "https://github.com/yourusername/portfolio",
         demo: "https://yoursite.com",
         image: "images/projects/cattle.jpeg",
         category: "frontend"
     },
     {
-        name: "React Portfolio Website",
-        description: "I created this portfolio website using React, Tailwind CSS and JavaScript.",
-        tech: ["React", "Tailwind CSS", "JavaScript"],
-        github: "https://github.com/yourusername/portfolio",
+        name: "Face AI App",
+        description: "Face AI App is a Flutter based application that uses OpenAI and Tensorflow to build this project.",
+        tech: ["Tensorflow", "OpenAI", "Flutter"],
+        github: "https://github.com/efe-atas/face_ai_app",
         demo: "https://efeatas.dev",
-        image: "images/projects/cattle.jpeg",
+        image: "images/projects/ss2.png",
         category: "frontend"
     }
 ];

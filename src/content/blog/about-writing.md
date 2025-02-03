@@ -4,7 +4,8 @@ author: Efe Ataş
 date: 2024-03-23
 category: Düşünceler
 description: Yazmanın hayatımızdaki yeri, önemi ve kişisel gelişimimize olan katkısı üzerine düşünceler.
-image: /images/blog/meditation.jpg
+image: /images/projects/cattle.jpeg
+
 ---
 
 # Yazmanın Önemi Üzerine
