@@ -4,15 +4,15 @@ const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
     const [isDark, setIsDark] = useState(() => {
-        // Local storage'dan tema tercihini al veya varsayılan olarak gece modunu kullan
+        // Get theme preference from local storage or use dark mode as default
         const savedTheme = localStorage.getItem('theme');
         return savedTheme ? savedTheme === 'dark' : true;
     });
 
     useEffect(() => {
-        // Tema değiştiğinde local storage'a kaydet
+        // Save theme preference to local storage when it changes
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        // HTML elementine tema class'ını ekle/çıkar
+        // Add/remove theme class to HTML element
         document.documentElement.classList.toggle('dark', isDark);
     }, [isDark]);
 

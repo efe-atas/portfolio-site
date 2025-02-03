@@ -11,6 +11,16 @@ image: /images/blog/meditation.jpg
 
 Zaman akıp gidiyor ve geriye pek bir şey kalmıyor. Ancak biliyoruz ki anlatacak çok şeyimiz var. Bilgi veya farkındalık aktarımı gerçekten zor bir mesele. Belki de bu durum yazmayı daha da önemli kılıyor.
 
+# Add picture
+
+![Picture](../images/projects/cattle.jpeg)
+
+# Size i kucultulmus fotograf
+![Picture](../images/projects/cattle.jpeg?width=100)
+
+
+
+
 ## Kayıp Anlar ve Kararlar
 
 Hayatımızın dönüm noktalarını kaçırabiliriz. Geçmişten gelen kötü karar ağaçlarımız olabilir. Ne kadar kötü ve güvenilmez olursa olsun, yazmalıyız. Kötü kararlardan ders almalıyız. Onları değiştiremesek bile onlarla yaşamalıyız.

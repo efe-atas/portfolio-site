@@ -7,10 +7,10 @@ const Header = () => {
     const { isDark, toggleTheme } = useTheme();
 
     const navItems = [
-        { path: 'about', label: 'Hakkımda' },
+        { path: 'about', label: 'About' },
         { path: 'blog', label: 'Blog' },
-        { path: 'apps', label: 'Uygulamalar' },
-        { path: 'contact', label: 'İletişim' },
+        { path: 'apps', label: 'Apps' },
+        { path: 'contact', label: 'Contact' },
     ];
 
     return (

@@ -8,27 +8,27 @@ import { GitHubIcon } from '../components/icons/SocialIcons';
 
 const Blog = () => {
     const { isDark } = useTheme();
-    const [selectedCategory, setSelectedCategory] = useState('Tümü');
-    const [sortOrder, setSortOrder] = useState('desc'); // 'desc' = en yeni en üstte
+    const [selectedCategory, setSelectedCategory] = useState('All');
+    const [sortOrder, setSortOrder] = useState('desc'); // 'desc' = newest first
 
     const allPosts = getAllPosts();
     
-    // Benzersiz kategorileri al
+    // Get unique categories
     const categories = useMemo(() => {
-        const cats = ['Tümü', ...new Set(allPosts.map(post => post.frontmatter.category))];
+        const cats = ['All', ...new Set(allPosts.map(post => post.frontmatter.category))];
         return cats.sort();
     }, [allPosts]);
 
-    // Filtrelenmiş ve sıralanmış yazılar
+    // Filtered and sorted posts
     const filteredAndSortedPosts = useMemo(() => {
         let posts = [...allPosts];
         
-        // Kategori filtresi
-        if (selectedCategory !== 'Tümü') {
+        // Category filter
+        if (selectedCategory !== 'All') {
             posts = posts.filter(post => post.frontmatter.category === selectedCategory);
         }
 
-        // Zaman sıralaması
+        // Time sorting
         posts.sort((a, b) => {
             const dateA = new Date(a.frontmatter.date);
             const dateB = new Date(b.frontmatter.date);
@@ -50,9 +50,9 @@ const Blog = () => {
                 <div className="max-w-4xl mx-auto px-4 py-2">
                     <div className="h-16"></div>
                     <div className="h-16"></div>
-                    {/* Filtreler */}
+                    {/* Filters */}
                     <div className="mb-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                        {/* Kategori Filtreleri */}
+                        {/* Category Filters */}
                         <div className="flex flex-wrap gap-2">
                             {categories.map((category) => (
                                 <motion.button
@@ -73,9 +73,9 @@ const Blog = () => {
                             ))}
                         </div>
 
-                        {/* Sıralama Seçenekleri */}
+                        {/* Sorting Options */}
                         <div className="flex items-center gap-2">
-                            <span className={isDark ? 'text-gray-400' : 'text-gray-600'}>Sıralama:</span>
+                            <span className={isDark ? 'text-gray-400' : 'text-gray-600'}>Sort:</span>
                             <select
                                 value={sortOrder}
                                 onChange={(e) => setSortOrder(e.target.value)}
@@ -85,13 +85,13 @@ const Blog = () => {
                                         : 'bg-gray-100 text-gray-700 border-gray-200'
                                 } border focus:outline-none focus:ring-2 focus:ring-red-500`}
                             >
-                                <option value="desc">En Yeni</option>
-                                <option value="asc">En Eski</option>
+                                <option value="desc">Newest</option>
+                                <option value="asc">Oldest</option>
                             </select>
                         </div>
                     </div>
 
-                    {/* Blog Yazıları */}
+                    {/* Blog Posts */}
                     <div className="grid gap-8">
                         {filteredAndSortedPosts.map((post) => (
                             <motion.article
@@ -135,13 +135,13 @@ const Blog = () => {
                                     <div className="flex items-center gap-4 text-sm text-gray-500">
                                         <span>{post.frontmatter.author}</span>
                                         <span>{post.date}</span>
-                                        <span>{post.readTime} dakika okuma</span>
+                                        <span>{post.readTime} minutes reading</span>
                                     </div>
                                 </Link>
                             </motion.article>
                         ))}
 
-                        {/* Sonuç bulunamadı mesajı */}
+                        {/* No posts found message */}
                         {filteredAndSortedPosts.length === 0 && (
                             <motion.div
                                 initial={{ opacity: 0 }}
@@ -149,7 +149,7 @@ const Blog = () => {
                                 className="text-center py-12"
                             >
                                 <p className={`text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                                    Bu kategoride henüz yazı bulunmuyor.
+                                    No posts found in this category.
                                 </p>
                             </motion.div>
                         )}

@@ -104,7 +104,7 @@ const BlogPost = () => {
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
                         >
-                            <Link to="/" className="text-red-500 hover:text-red-400 transition-colors duration-300">← Ana Sayfa</Link>
+                            <Link to="/" className="text-red-500 hover:text-red-400 transition-colors duration-300">← Home</Link>
                         </motion.div>
                         <motion.button
                             whileHover={{ rotate: 180 }}
@@ -142,7 +142,7 @@ const BlogPost = () => {
                                     {post.date}
                                 </span>
                                 <span className={isDark ? 'text-gray-400' : 'text-gray-600'}>
-                                    {post.readTime} okuma
+                                    {post.readTime} minutes reading
                                 </span>
                             </div>
                         </div>

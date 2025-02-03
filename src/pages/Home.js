@@ -138,12 +138,12 @@ const Home = () => {
                                 className="flex-1 text-center md:text-left"
                             >
                                 <h1 className="text-2xl font-bold mb-2">
-                                    <span className="text-red-500">Merhaba</span>, Ben Efe 👋
+                                    <span className="text-red-500">Hello</span>, I'm Efe 👋
                                 </h1>
                                 <p className={`leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                                    Yapay Zeka ve Makine Öğrenmesi alanında uzmanlaşmış bir yazılım mühendisiyim. 
-                                    Derin öğrenme, doğal dil işleme ve bilgisayarlı görü alanlarında projeler geliştiriyor, 
-                                    modern yapay zeka teknolojilerini kullanarak yenilikçi çözümler üretiyorum.
+                                    I'm a software engineer specializing in Artificial Intelligence and Machine Learning.
+                                    I develop projects in deep learning, natural language processing, and computer vision,
+                                    creating innovative solutions using modern AI technologies.
                                 </p>
                                 {/* AI/ML Skills Tags */}
                                 <div className="mt-4 flex flex-wrap gap-2">
@@ -166,11 +166,11 @@ const Home = () => {
                     >
                         <div className="flex justify-between items-center mb-8">
                             <h2 className="text-2xl font-bold">
-                                <span className="text-red-500">Projelerim</span>
+                                <span className="text-red-500">My Projects</span>
                             </h2>
                             <motion.div whileHover={{ x: 5 }}>
                                 <Link to="/projects" className="text-red-500 hover:text-red-400 transition-colors duration-300">
-                                    Tümünü Gör →
+                                    View All →
                                 </Link>
                             </motion.div>
                         </div>
@@ -239,11 +239,11 @@ const Home = () => {
                     >
                         <div className="flex justify-between items-center mb-8">
                             <h2 className="text-2xl font-bold">
-                                <span className="text-red-500">Son Blog Yazıları</span>
+                                <span className="text-red-500">Recent Blog Posts</span>
                             </h2>
                             <motion.div whileHover={{ x: 5 }}>
                                 <Link to="/blog" className="text-red-500 hover:text-red-400 transition-colors duration-300">
-                                    Tümünü Gör →
+                                    View All →
                                 </Link>
                             </motion.div>
                         </div>
@@ -271,7 +271,7 @@ const Home = () => {
                                         <div className="flex items-center gap-4 text-sm text-gray-500">
                                             <span>{post.frontmatter.author}</span>
                                             <span>{post.date}</span>
-                                            <span>{post.readTime} dakika okuma</span>
+                                            <span>{post.readTime} minutes reading</span>
                                         </div>
                                     </Link>
                                 </motion.article>
