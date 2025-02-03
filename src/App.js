@@ -5,7 +5,10 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import ComputerVisionProjects from './pages/ComputerVisionProjects';
-import ArtificialIntelligenceAndDeepLearning from './pages/BlogPosts/ArtificialIntelligenceAndDeepLearning';
+import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
+import Apps from './pages/Apps';
+
 
 function App() {
   return (
@@ -16,7 +19,9 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/projects" element={<ComputerVisionProjects />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/blog/artificial-intelligence-and-deep-learning" element={<ArtificialIntelligenceAndDeepLearning />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/apps" element={<Apps />} />
         </Routes>
       </Router>
     </ThemeProvider>

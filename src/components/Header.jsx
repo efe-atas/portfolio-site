@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Header = () => {
     return (
@@ -12,6 +14,14 @@ const Header = () => {
                             <li><a href="#about" className="hover:text-pink-400 transition-colors duration-300">About</a></li>
                             <li><a href="#projects" className="hover:text-pink-400 transition-colors duration-300">Projects</a></li>
                             <li><a href="#contact" className="hover:text-pink-400 transition-colors duration-300">Contact</a></li>
+                            <motion.li
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                            >
+                                <Link to="/blog" className="text-red-500 hover:text-red-400">
+                                    Blog
+                                </Link>
+                            </motion.li>
                         </ul>
                     </div>
                 </div>

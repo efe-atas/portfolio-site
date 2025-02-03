@@ -4,7 +4,8 @@ import { useTheme } from '../context/ThemeContext';
 import { motion } from 'framer-motion';
 import { GitHubIcon, LinkedInIcon} from '../components/icons/SocialIcons';
 import { PyTorchIcon, TensorFlowIcon, NLPIcon, ComputerVisionIcon, DeepLearningIcon } from '../components/icons/TechIcons';
-import { featuredProjects, myApps } from '../data/featuredProjects';
+import { getAllPosts } from '../utils/blogUtils';
+import { featuredProjects } from '../data/featuredProjects';
 
 const TechTag = ({ icon: Icon, text }) => (
     <motion.div
@@ -19,12 +20,13 @@ const TechTag = ({ icon: Icon, text }) => (
 
 const Home = () => {
     const { isDark, toggleTheme } = useTheme();
+    const recentPosts = getAllPosts().slice(0, 3); // Son 3 blog yazısı
 
     const navItems = [
-        { path: 'about', label: 'About' },
-        { path: 'projects', label: 'Projects' },
-        { path: 'contact', label: 'Contact' },
-        { path: 'contact', label: 'CV' }
+        { path: 'about', label: 'Hakkımda' },
+        { path: 'blog', label: 'Blog' },
+        { path: 'apps', label: 'Uygulamalar' },
+        { path: 'contact', label: 'İletişim' },
     ];
 
     const socialLinks = [
@@ -136,12 +138,12 @@ const Home = () => {
                                 className="flex-1 text-center md:text-left"
                             >
                                 <h1 className="text-2xl font-bold mb-2">
-                                    <span className="text-red-500">Hello</span>, I'm Efe 👋
+                                    <span className="text-red-500">Merhaba</span>, Ben Efe 👋
                                 </h1>
                                 <p className={`leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                                    I'm a software engineer specializing in Artificial Intelligence and Machine Learning. 
-                                    I develop projects in deep learning, natural language processing, and computer vision, 
-                                    creating innovative solutions using modern AI technologies.
+                                    Yapay Zeka ve Makine Öğrenmesi alanında uzmanlaşmış bir yazılım mühendisiyim. 
+                                    Derin öğrenme, doğal dil işleme ve bilgisayarlı görü alanlarında projeler geliştiriyor, 
+                                    modern yapay zeka teknolojilerini kullanarak yenilikçi çözümler üretiyorum.
                                 </p>
                                 {/* AI/ML Skills Tags */}
                                 <div className="mt-4 flex flex-wrap gap-2">
@@ -164,11 +166,11 @@ const Home = () => {
                     >
                         <div className="flex justify-between items-center mb-8">
                             <h2 className="text-2xl font-bold">
-                                <span className="text-red-500">Featured Projects</span>
+                                <span className="text-red-500">Projelerim</span>
                             </h2>
                             <motion.div whileHover={{ x: 5 }}>
                                 <Link to="/projects" className="text-red-500 hover:text-red-400 transition-colors duration-300">
-                                    View All →
+                                    Tümünü Gör →
                                 </Link>
                             </motion.div>
                         </div>
@@ -228,192 +230,52 @@ const Home = () => {
                         </div>
                     </motion.section>
 
-                    {/* My Apps Section */}
+                    {/* Recent Blog Posts */}
                     <motion.section 
                         initial={{ y: 50, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.5 }}
-                        className="max-w-4xl mx-auto mb-16"
+                        className="mb-16"
                     >
                         <div className="flex justify-between items-center mb-8">
                             <h2 className="text-2xl font-bold">
-                                <span className="text-red-500">My Apps</span>
-                            </h2>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            {myApps.map((app, index) => (
-                                <motion.div
-                                    key={app.name}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: index * 0.1 }}
-                                    whileHover={{ scale: 1.02 }}
-                                    className="relative"
-                                >
-                                    {/* App Screenshot */}
-                                    <motion.div 
-                                        className="relative aspect-[9/19] w-full"
-                                        initial={{ y: 20 }}
-                                        animate={{ y: 0 }}
-                                        transition={{ 
-                                            type: "spring",
-                                            stiffness: 300,
-                                            damping: 20
-                                        }}
-                                    >
-                                        <motion.img
-                                            src={app.screenshots[0]}
-                                            alt={`${app.name} screenshot`}
-                                            className="w-full h-full object-contain"
-                                            whileHover={{ scale: 1.05 }}
-                                            transition={{ 
-                                                type: "spring",
-                                                stiffness: 300,
-                                                damping: 20
-                                            }}
-                                        />
-
-                                        {/* App Info Overlay */}
-                                        <motion.div 
-                                            className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent"
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: 0.2 }}
-                                        >
-                                            <motion.h3 
-                                                className="text-white text-xl font-bold mb-3"
-                                                initial={{ opacity: 0, x: -20 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                transition={{ delay: 0.3 }}
-                                            >
-                                                {app.name}
-                                            </motion.h3>
-                                            <motion.p 
-                                                className="text-gray-200 text-base mb-4"
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                transition={{ delay: 0.4 }}
-                                            >
-                                                {app.description}
-                                            </motion.p>
-                                            <motion.div 
-                                                className="flex flex-wrap gap-2 mb-4"
-                                                initial={{ opacity: 0, y: 10 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                transition={{ delay: 0.5 }}
-                                            >
-                                                {app.tech.map((tech, techIndex) => (
-                                                    <motion.span
-                                                        key={techIndex}
-                                                        className="px-3 py-1.5 text-sm rounded-full bg-red-500/80 text-white"
-                                                        whileHover={{ scale: 1.1 }}
-                                                        initial={{ opacity: 0, x: -10 }}
-                                                        animate={{ opacity: 1, x: 0 }}
-                                                        transition={{ delay: 0.5 + (techIndex * 0.1) }}
-                                                    >
-                                                        {tech}
-                                                    </motion.span>
-                                                ))}
-                                            </motion.div>
-                                            <motion.div 
-                                                className="flex items-center gap-4"
-                                                initial={{ opacity: 0, y: 20 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                transition={{ delay: 0.6 }}
-                                            >
-                                                {app.appStore && (
-                                                    <motion.a
-                                                        href={app.appStore}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="hover:opacity-80 transition-opacity"
-                                                        whileHover={{ scale: 1.1 }}
-                                                        whileTap={{ scale: 0.95 }}
-                                                    >
-                                                        <img 
-                                                            src="/images/store-badges/app-store-badge.svg" 
-                                                            alt="Download on the App Store" 
-                                                            className="h-9"
-                                                        />
-                                                    </motion.a>
-                                                )}
-                                                {app.playStore && (
-                                                    <motion.a
-                                                        href={app.playStore}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="hover:opacity-80 transition-opacity"
-                                                        whileHover={{ scale: 1.1 }}
-                                                        whileTap={{ scale: 0.95 }}
-                                                    >
-                                                        <img 
-                                                            src="/images/store-badges/google-play-badge.png" 
-                                                            alt="Get it on Google Play" 
-                                                            className="h-12"
-                                                        />
-                                                    </motion.a>
-                                                )}
-                                            </motion.div>
-                                        </motion.div>
-                                    </motion.div>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </motion.section>
-
-                    {/* Blog Posts */}
-                    <motion.section 
-                        initial={{ y: 50, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                        className="space-y-8"
-                    >
-                        <div className="flex justify-between items-center mb-8">
-                            <h2 className="text-2xl font-bold">
-                                <span className="text-red-500">Blog Posts</span>
+                                <span className="text-red-500">Son Blog Yazıları</span>
                             </h2>
                             <motion.div whileHover={{ x: 5 }}>
                                 <Link to="/blog" className="text-red-500 hover:text-red-400 transition-colors duration-300">
-                                    View All →
+                                    Tümünü Gör →
                                 </Link>
                             </motion.div>
                         </div>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            <motion.article 
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2 }}
-                                whileHover={{ y: -5 }}
-                                className={`group relative rounded-lg overflow-hidden transition-colors duration-300 ${
-                                    isDark ? 'bg-gray-900/30 hover:bg-gray-900/50' : 'bg-gray-100 hover:bg-gray-200'
-                                }`}
-                            >
-                                <Link to="/blog/artificial-intelligence-and-deep-learning" className="block p-4">
-                                    <div className="mb-2">
-                                        <span className="inline-block px-2 py-1 text-xs rounded bg-red-500 text-white">
-                                            AI/ML
+
+                        <div className="grid gap-8">
+                            {recentPosts.map((post) => (
+                                <motion.article
+                                    key={post.slug}
+                                    initial={{ y: 20, opacity: 0 }}
+                                    animate={{ y: 0, opacity: 1 }}
+                                    className={`p-6 rounded-lg ${
+                                        isDark ? 'bg-gray-900' : 'bg-gray-50'
+                                    } hover:shadow-lg transition-shadow`}
+                                >
+                                    <Link to={`/blog/${post.slug}`}>
+                                        <span className="inline-block px-2 py-1 text-xs rounded bg-red-500 text-white mb-4">
+                                            {post.frontmatter.category}
                                         </span>
-                                    </div>
-                                    <div className="flex justify-between items-start mb-2">
-                                        <h3 className={`text-base font-bold ${isDark ? 'text-white' : 'text-black'}`}>
-                                            Artificial Intelligence and Deep Learning
-                                        </h3>
-                                        <span className={isDark ? 'text-gray-400' : 'text-gray-600'}>6 min</span>
-                                    </div>
-                                    <p className={`text-sm mb-2 line-clamp-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                                        Detailed analysis of modern artificial intelligence applications and deep learning models.
-                                    </p>
-                                    <div className="flex justify-between items-center text-xs">
-                                        <span className={isDark ? 'text-gray-500' : 'text-gray-600'}>2024-01-01</span>
-                                        <span className="text-red-500 hover:text-red-400 transition-colors duration-300">
-                                            Read More →
-                                        </span>
-                                    </div>
-                                </Link>
-                                <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-red-600 to-red-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-                            </motion.article>
+                                        <h2 className="text-2xl font-bold mb-2 hover:text-red-500 transition-colors">
+                                            {post.frontmatter.title}
+                                        </h2>
+                                        <p className="text-gray-600 dark:text-gray-400 mb-4">
+                                            {post.frontmatter.description}
+                                        </p>
+                                        <div className="flex items-center gap-4 text-sm text-gray-500">
+                                            <span>{post.frontmatter.author}</span>
+                                            <span>{post.date}</span>
+                                            <span>{post.readTime} dakika okuma</span>
+                                        </div>
+                                    </Link>
+                                </motion.article>
+                            ))}
                         </div>
                     </motion.section>
 
@@ -422,35 +284,21 @@ const Home = () => {
                         initial={{ y: 50, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.6 }}
-                        className="mt-16 text-center"
+                        className="flex justify-center space-x-6"
                     >
-                        <h2 className="text-xl font-bold mb-6">
-                            <span className="block text-red-500">Social Media</span>
-                            <span className={`block text-sm mt-1 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Connect With Me</span>
-                        </h2>
-                        <div className="flex justify-center space-x-6">
-                            {socialLinks.map((link, index) => {
-                                const Icon = link.icon;
-                                return (
-                                    <motion.a
-                                        key={index}
-                                        whileHover={{ y: -5 }}
-                                        whileTap={{ scale: 0.9 }}
-                                        href={link.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className={`group relative p-2 transition-colors duration-300 ${link.hoverColor}`}
-                                    >
-                                        <Icon className="w-6 h-6" />
-                                        <span className={`absolute -bottom-5 left-1/2 transform -translate-x-1/2 text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-                                            isDark ? 'text-gray-400' : 'text-gray-600'
-                                        }`}>
-                                            {link.name}
-                                        </span>
-                                    </motion.a>
-                                );
-                            })}
-                        </div>
+                        {socialLinks.map((link) => (
+                            <motion.a
+                                key={link.name}
+                                href={link.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                className={`text-2xl ${link.hoverColor} transition-colors duration-300`}
+                            >
+                                <link.icon className="w-6 h-6" />
+                            </motion.a>
+                        ))}
                     </motion.section>
                 </div>
             </motion.main>

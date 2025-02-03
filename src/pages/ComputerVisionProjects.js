@@ -11,7 +11,7 @@ const Project = ({ title, description, technologies, imageUrl }) => {
         <motion.div
             whileHover={{ y: -10 }}
             className={`rounded-lg overflow-hidden ${
-                isDark ? 'bg-gray-900/70' : 'bg-white/90'
+                isDark ? 'bg-gray-900/70' : 'bg-gray-900/70'
             }`}
         >
             <img
@@ -21,7 +21,7 @@ const Project = ({ title, description, technologies, imageUrl }) => {
             />
             <div className="p-6">
                 <h3 className="text-xl font-bold mb-2">{title}</h3>
-                <p className={`mb-4 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                <p className={`mb-4 ${isDark ? 'text-gray-300' : 'text-gray-300 '}`}>
                     {description}
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -29,7 +29,7 @@ const Project = ({ title, description, technologies, imageUrl }) => {
                         <span
                             key={index}
                             className={`px-3 py-1 text-sm rounded-full ${
-                                isDark ? 'bg-gray-800 text-gray-300' : 'bg-gray-200 text-gray-700'
+                                isDark ? 'bg-gray-800 text-gray-300' : 'bg-gray-800 text-gray-300'
                             }`}
                         >
                             {tech}

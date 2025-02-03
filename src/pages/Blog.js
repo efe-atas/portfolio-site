@@ -1,135 +1,162 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { useTheme } from '../context/ThemeContext';
 import { motion } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 import { getAllPosts } from '../utils/blogUtils';
+import Header from '../components/Header';
+import { GitHubIcon } from '../components/icons/SocialIcons';
 
 const Blog = () => {
-    const { isDark, toggleTheme } = useTheme();
-    const [posts, setPosts] = useState([]);
+    const { isDark } = useTheme();
+    const [selectedCategory, setSelectedCategory] = useState('Tümü');
+    const [sortOrder, setSortOrder] = useState('desc'); // 'desc' = en yeni en üstte
 
-    useEffect(() => {
-        try {
-            const allPosts = getAllPosts();
-            setPosts(allPosts);
-        } catch (error) {
-            console.error('Blog yazıları yüklenirken hata oluştu:', error);
+    const allPosts = getAllPosts();
+    
+    // Benzersiz kategorileri al
+    const categories = useMemo(() => {
+        const cats = ['Tümü', ...new Set(allPosts.map(post => post.frontmatter.category))];
+        return cats.sort();
+    }, [allPosts]);
+
+    // Filtrelenmiş ve sıralanmış yazılar
+    const filteredAndSortedPosts = useMemo(() => {
+        let posts = [...allPosts];
+        
+        // Kategori filtresi
+        if (selectedCategory !== 'Tümü') {
+            posts = posts.filter(post => post.frontmatter.category === selectedCategory);
         }
-    }, []);
+
+        // Zaman sıralaması
+        posts.sort((a, b) => {
+            const dateA = new Date(a.frontmatter.date);
+            const dateB = new Date(b.frontmatter.date);
+            return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+        });
+
+        return posts;
+    }, [allPosts, selectedCategory, sortOrder]);
 
     return (
-        <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className={`min-h-screen ${isDark ? 'bg-black text-white' : 'bg-white text-black'}`}
-        >
-            {/* Navigation */}
-            <motion.nav 
-                initial={{ y: -100 }}
-                animate={{ y: 0 }}
-                transition={{ type: "spring", stiffness: 100 }}
-                className={`fixed top-0 left-0 w-full ${isDark ? 'bg-black/50' : 'bg-white/50'} backdrop-blur-sm z-50`}
+        <>
+            <Header />
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className={`min-h-screen ${isDark ? 'bg-black text-white' : 'bg-white text-black'}`}
             >
-                <div className="max-w-7xl mx-auto px-4 py-4">
-                    <div className="flex justify-between items-center">
-                        <motion.div
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                        >
-                            <Link to="/" className="text-red-500 hover:text-red-400 transition-colors duration-300">← Ana Sayfa</Link>
-                        </motion.div>
-                        <motion.button
-                            whileHover={{ rotate: 180 }}
-                            whileTap={{ scale: 0.9 }}
-                            onClick={toggleTheme}
-                            className="p-2 rounded-full hover:bg-gray-800/10 transition-colors duration-300"
-                            aria-label="Toggle theme"
-                        >
-                            {isDark ? '🌞' : '🌙'}
-                        </motion.button>
-                    </div>
-                </div>
-            </motion.nav>
+                <div className="max-w-4xl mx-auto px-4 py-2">
+                    <div className="h-16"></div>
+                    <div className="h-16"></div>
+                    {/* Filtreler */}
+                    <div className="mb-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                        {/* Kategori Filtreleri */}
+                        <div className="flex flex-wrap gap-2">
+                            {categories.map((category) => (
+                                <motion.button
+                                    key={category}
+                                    onClick={() => setSelectedCategory(category)}
+                                    className={`px-4 py-2 rounded-full text-sm transition-colors ${
+                                        selectedCategory === category
+                                            ? 'bg-red-500 text-white'
+                                            : isDark
+                                            ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                    }`}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    {category}
+                                </motion.button>
+                            ))}
+                        </div>
 
-            {/* Main Content */}
-            <motion.main 
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="pt-24 pb-12 px-4"
-            >
-                <div className="max-w-4xl mx-auto">
-                    <header className="text-center mb-12">
-                        <h1 className="text-4xl font-bold mb-4">
-                            <span className="text-red-500">Blog</span>
-                        </h1>
-                        <p className={`max-w-xl mx-auto ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                            Yapay Zeka, Makine Öğrenmesi ve Yazılım Geliştirme üzerine yazılar
-                        </p>
-                    </header>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {posts.map((post, index) => (
-                            <motion.article 
-                                key={post.slug}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.1 * index }}
-                                whileHover={{ y: -5 }}
-                                className={`group relative rounded-lg overflow-hidden transition-colors duration-300 ${
-                                    isDark ? 'bg-gray-900/30 hover:bg-gray-900/50' : 'bg-gray-100 hover:bg-gray-200'
-                                }`}
+                        {/* Sıralama Seçenekleri */}
+                        <div className="flex items-center gap-2">
+                            <span className={isDark ? 'text-gray-400' : 'text-gray-600'}>Sıralama:</span>
+                            <select
+                                value={sortOrder}
+                                onChange={(e) => setSortOrder(e.target.value)}
+                                className={`px-3 py-2 rounded-lg text-sm ${
+                                    isDark
+                                        ? 'bg-gray-800 text-white border-gray-700'
+                                        : 'bg-gray-100 text-gray-700 border-gray-200'
+                                } border focus:outline-none focus:ring-2 focus:ring-red-500`}
                             >
-                                <Link to={`/blog/${post.slug}`} className="block p-6">
-                                    {/* Category Badge */}
-                                    <div className="mb-2">
-                                        <span className="inline-block px-2 py-1 text-xs rounded bg-red-500 text-white">
+                                <option value="desc">En Yeni</option>
+                                <option value="asc">En Eski</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    {/* Blog Yazıları */}
+                    <div className="grid gap-8">
+                        {filteredAndSortedPosts.map((post) => (
+                            <motion.article
+                                key={post.slug}
+                                initial={{ y: 20, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                className={`p-6 rounded-lg ${
+                                    isDark ? 'bg-gray-900' : 'bg-gray-50'
+                                } hover:shadow-lg transition-shadow`}
+                            >
+                                <div className="flex justify-between items-start mb-4">
+                                    <Link to={`/blog/${post.slug}`} className="flex-1">
+                                        <span className="inline-block px-2 py-1 text-xs rounded bg-red-500 text-white mb-4">
                                             {post.frontmatter.category}
                                         </span>
-                                    </div>
-                                    
-                                    {/* Title and Read Time */}
-                                    <div className="flex justify-between items-start mb-2">
-                                        <h2 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-black'}`}>
+                                        <h2 className="text-2xl font-bold mb-2 hover:text-red-500 transition-colors">
                                             {post.frontmatter.title}
                                         </h2>
-                                        <span className={isDark ? 'text-gray-400' : 'text-gray-600'}>
-                                            {post.readTime}
-                                        </span>
-                                    </div>
-                                    
-                                    {/* Excerpt */}
-                                    <p className={`text-sm mb-4 line-clamp-3 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                                        {post.excerpt}
+                                    </Link>
+                                    {post.frontmatter.github && (
+                                        <motion.a
+                                            href={post.frontmatter.github}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className={`ml-4 p-2 rounded-full ${
+                                                isDark 
+                                                    ? 'hover:bg-gray-800 text-gray-400 hover:text-white' 
+                                                    : 'hover:bg-gray-200 text-gray-600 hover:text-black'
+                                            } transition-all`}
+                                            whileHover={{ scale: 1.1 }}
+                                            whileTap={{ scale: 0.9 }}
+                                        >
+                                            <GitHubIcon className="w-6 h-6" />
+                                        </motion.a>
+                                    )}
+                                </div>
+                                <Link to={`/blog/${post.slug}`}>
+                                    <p className="text-gray-600 dark:text-gray-400 mb-4">
+                                        {post.frontmatter.description}
                                     </p>
-                                    
-                                    {/* Date and Read More */}
-                                    <div className="flex justify-between items-center text-sm">
-                                        <span className={isDark ? 'text-gray-500' : 'text-gray-600'}>
-                                            {post.date}
-                                        </span>
-                                        <span className="text-red-500 group-hover:text-red-400 transition-colors duration-300">
-                                            Devamını Oku →
-                                        </span>
+                                    <div className="flex items-center gap-4 text-sm text-gray-500">
+                                        <span>{post.frontmatter.author}</span>
+                                        <span>{post.date}</span>
+                                        <span>{post.readTime} dakika okuma</span>
                                     </div>
                                 </Link>
                             </motion.article>
                         ))}
+
+                        {/* Sonuç bulunamadı mesajı */}
+                        {filteredAndSortedPosts.length === 0 && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="text-center py-12"
+                            >
+                                <p className={`text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                    Bu kategoride henüz yazı bulunmuyor.
+                                </p>
+                            </motion.div>
+                        )}
                     </div>
                 </div>
-            </motion.main>
-
-            {/* Minimal Red Circle */}
-            <motion.div 
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.7, type: "spring" }}
-                className="fixed bottom-8 right-8"
-            >
-                <div className="w-3 h-3 rounded-full bg-red-500"></div>
             </motion.div>
-        </motion.div>
+        </>
     );
 };
 

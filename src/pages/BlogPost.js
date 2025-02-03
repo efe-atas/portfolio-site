@@ -3,6 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { motion } from 'framer-motion';
 import { getPostBySlug } from '../utils/blogUtils';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const BlogPost = () => {
     const { isDark, toggleTheme } = useTheme();
@@ -13,6 +15,7 @@ const BlogPost = () => {
         try {
             const postData = getPostBySlug(slug);
             setPost(postData);
+            document.title = postData?.frontmatter?.title || 'Blog Yazısı';
         } catch (error) {
             console.error('Blog yazısı yüklenirken hata oluştu:', error);
         }
@@ -28,6 +31,58 @@ const BlogPost = () => {
             </div>
         );
     }
+
+    const customComponents = {
+        h1: ({node, ...props}) => (
+            <h1 {...props} className="text-3xl font-bold mt-8 mb-4 text-red-500" />
+        ),
+        h2: ({node, ...props}) => (
+            <h2 {...props} className="text-2xl font-bold mt-6 mb-3 text-red-500" />
+        ),
+        h3: ({node, ...props}) => (
+            <h3 {...props} className="text-xl font-bold mt-4 mb-2 text-red-500" />
+        ),
+        p: ({node, ...props}) => (
+            <p {...props} className="my-4 leading-relaxed" />
+        ),
+        a: ({node, ...props}) => (
+            <a {...props} className="text-red-500 hover:text-red-600 underline" target="_blank" rel="noopener noreferrer" />
+        ),
+        code: ({node, inline, ...props}) => (
+            inline ? 
+            <code {...props} className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm font-mono" /> :
+            <code {...props} className="block bg-gray-100 dark:bg-gray-800 p-4 rounded-lg text-sm font-mono overflow-x-auto" />
+        ),
+        pre: ({node, ...props}) => (
+            <pre {...props} className="bg-transparent" />
+        ),
+        ul: ({node, ...props}) => (
+            <ul {...props} className="list-disc list-inside my-4 space-y-2" />
+        ),
+        ol: ({node, ...props}) => (
+            <ol {...props} className="list-decimal list-inside my-4 space-y-2" />
+        ),
+        li: ({node, ...props}) => (
+            <li {...props} className="ml-4" />
+        ),
+        blockquote: ({node, ...props}) => (
+            <blockquote {...props} className="border-l-4 border-red-500 pl-4 my-4 italic" />
+        ),
+        img: ({node, ...props}) => (
+            <img {...props} className="max-w-full h-auto rounded-lg my-4" loading="lazy" />
+        ),
+        table: ({node, ...props}) => (
+            <div className="overflow-x-auto my-4">
+                <table {...props} className="min-w-full divide-y divide-gray-200 dark:divide-gray-700" />
+            </div>
+        ),
+        th: ({node, ...props}) => (
+            <th {...props} className="px-4 py-2 bg-gray-100 dark:bg-gray-800" />
+        ),
+        td: ({node, ...props}) => (
+            <td {...props} className="px-4 py-2 border-t border-gray-200 dark:border-gray-700" />
+        )
+    };
 
     return (
         <motion.div 
@@ -94,10 +149,15 @@ const BlogPost = () => {
                     </header>
 
                     {/* Content */}
-                    <div 
-                        className={`prose prose-lg max-w-none ${isDark ? 'prose-invert' : ''} prose-headings:text-red-500`}
-                        dangerouslySetInnerHTML={{ __html: post.content }}
-                    />
+                    <div className={`markdown-content ${isDark ? 'dark' : ''}`}>
+                        <ReactMarkdown 
+                            remarkPlugins={[remarkGfm]}
+                            components={customComponents}
+                            className="break-words"
+                        >
+                            {post.content}
+                        </ReactMarkdown>
+                    </div>
                 </article>
             </motion.main>
 

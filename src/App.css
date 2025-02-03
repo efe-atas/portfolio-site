@@ -82,4 +82,20 @@ footer {
 .social-media img {
     width: 24px;
     height: 24px;
+}
+
+.markdown-content {
+    @apply text-base leading-relaxed;
+}
+
+.markdown-content.dark {
+    @apply text-gray-200;
+}
+
+.markdown-content pre {
+    @apply my-4;
+}
+
+.markdown-content :not(pre) > code {
+    @apply text-red-500;
 } 
