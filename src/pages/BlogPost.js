@@ -5,11 +5,22 @@ import { motion } from 'framer-motion';
 import { getPostBySlug } from '../utils/blogUtils';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const BlogPost = () => {
     const { isDark, toggleTheme } = useTheme();
     const { slug } = useParams();
     const [post, setPost] = useState(null);
+    const [copySuccess, setCopySuccess] = useState('');
+
+    const handleCopyClick = (code) => {
+        navigator.clipboard.writeText(code).then(() => {
+            setCopySuccess('Kopyalandı!');
+            setTimeout(() => setCopySuccess(''), 2000);
+        });
+    };
 
     useEffect(() => {
         try {
@@ -48,11 +59,39 @@ const BlogPost = () => {
         a: ({node, ...props}) => (
             <a {...props} className="text-red-500 hover:text-red-600 underline" target="_blank" rel="noopener noreferrer" />
         ),
-        code: ({node, inline, ...props}) => (
-            inline ? 
-            <code {...props} className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm font-mono" /> :
-            <code {...props} className="block bg-gray-100 dark:bg-gray-800 p-4 rounded-lg text-sm font-mono overflow-x-auto" />
-        ),
+        code: ({node, inline, className, children, ...props}) => {
+            const match = /language-(\w+)/.exec(className || '');
+            const language = match ? match[1] : '';
+            
+            if (!inline && match) {
+                return (
+                    <div className="relative group">
+                        <button
+                            onClick={() => handleCopyClick(String(children))}
+                            className="absolute right-2 top-2 bg-gray-700 text-white px-2 py-1 rounded text-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                            {copySuccess || 'Kopyala'}
+                        </button>
+                        <SyntaxHighlighter
+                            style={isDark ? vscDarkPlus : tomorrow}
+                            language={language}
+                            PreTag="div"
+                            className="rounded-lg !my-4"
+                            showLineNumbers={true}
+                            wrapLines={true}
+                            {...props}
+                        >
+                            {String(children).replace(/\n$/, '')}
+                        </SyntaxHighlighter>
+                    </div>
+                );
+            }
+            return (
+                <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm font-mono" {...props}>
+                    {children}
+                </code>
+            );
+        },
         pre: ({node, ...props}) => (
             <pre {...props} className="bg-transparent" />
         ),

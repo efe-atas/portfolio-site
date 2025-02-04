@@ -52,6 +52,18 @@ const ComputerVisionProjects = () => {
             imageUrl: "/images/projects/cattle.jpeg"
         },
         {
+            title: "Cattle Activity Detection",
+            description: "Developed a YOLO-based model to detect and classify cattle activities such as ruminating, eating, standing, and lying down. The system processes video feeds in real-time and provides accurate activity classification.",
+            technologies: ["YOLO", "Python", "OpenCV", "Deep Learning"],
+            imageUrl: "/images/projects/cattle.jpeg"
+        },
+        {
+            title: "Cattle Activity Detection",
+            description: "Developed a YOLO-based model to detect and classify cattle activities such as ruminating, eating, standing, and lying down. The system processes video feeds in real-time and provides accurate activity classification.",
+            technologies: ["YOLO", "Python", "OpenCV", "Deep Learning"],
+            imageUrl: "/images/projects/cattle.jpeg"
+        },  
+        {
             title: "Object Tracking System",
             description: "Implemented various object tracking algorithms including ByteTrack, BoT-SORT, and DeepSORT for robust object tracking in video streams. The system maintains consistent tracking across frames.",
             technologies: ["ByteTrack", "DeepSORT", "Python", "TensorFlow"],
@@ -98,7 +110,7 @@ const ComputerVisionProjects = () => {
             </motion.header>
 
             {/* Main Content */}
-            <div className="max-w-6xl mx-auto pt-24 pb-12 px-4">
+            <div className="max-w-6xl mx-auto pt-24 pb-8 px-4">
                 {/* Introduction */}
                 <motion.section
                     initial={{ y: 20, opacity: 0 }}
@@ -106,15 +118,7 @@ const ComputerVisionProjects = () => {
                     transition={{ delay: 0.2 }}
                     className="text-center mb-16"
                 >
-                    <h1 className="text-4xl font-bold mb-6">
-                        <span className="text-red-500">Computer Vision</span> Projects
-                    </h1>
-                    <p className="max-w-3xl mx-auto text-lg">
-                        Exploring the intersection of artificial intelligence and visual perception through 
-                        innovative computer vision projects. From object detection to activity recognition, 
-                        these projects demonstrate the power of modern AI in understanding and interpreting 
-                        visual information.
-                    </p>
+
                 </motion.section>
 
                 {/* Projects Grid */}

@@ -52,9 +52,9 @@ const Header = () => {
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.9 }}
                                 >
-                                    <Link to="/" className="text-2xl font-bold text-red-500 font-merriweather">EfeAtas</Link>
+                                    <Link to="/" className="text-2xl font-bold text-red-500">EfeAtas</Link>
                                 </motion.div>
-                                <div className="flex items-center space-x-8 font-inter">
+                                <div className="flex items-center space-x-8">
                                     <ul className="flex space-x-8">
                                         {navItems.map((item) => (
                                             <motion.li
