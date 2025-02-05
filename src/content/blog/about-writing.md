@@ -1,25 +1,16 @@
 ---
 title: Yazmanın Önemi Üzerine
 author: Efe Ataş
-date: 2024-03-23
+date: 2025-02-05
 category: Düşünceler
 description: Yazmanın hayatımızdaki yeri, önemi ve kişisel gelişimimize olan katkısı üzerine düşünceler.
-image: /images/projects/cattle.jpeg
+image: 
 
 ---
 
 # Yazmanın Önemi Üzerine
 
 Zaman akıp gidiyor ve geriye pek bir şey kalmıyor. Ancak biliyoruz ki anlatacak çok şeyimiz var. Bilgi veya farkındalık aktarımı gerçekten zor bir mesele. Belki de bu durum yazmayı daha da önemli kılıyor.
-
-# Add picture
-
-![Picture](../images/projects/cattle.jpeg)
-
-# Size i kucultulmus fotograf
-![Picture](../images/projects/cattle.jpeg?width=100)
-
-
 
 
 ## Kayıp Anlar ve Kararlar

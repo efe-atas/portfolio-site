@@ -63,5 +63,31 @@ export const myApps = [
             "/images/apps/fitness/screenshot-2.png",
             "/images/apps/fitness/screenshot-3.png"
         ]
+    },
+    {
+        name: "Fitness Tracker",
+        description: "Kişisel fitness takip uygulaması. Egzersiz planları ve beslenme takibi.",
+        tech: ["Flutter", "Firebase", "ML Kit"],
+        appStore: "https://apps.apple.com/app/id456",
+        playStore: "https://play.google.com/store/apps/details?id=456",
+        image: "images/apps/fitness/icon.png",
+        screenshots: [
+            "/images/apps/ai-chat/ss2.png",
+            "/images/apps/fitness/screenshot-2.png",
+            "/images/apps/fitness/screenshot-3.png"
+        ]
+    } ,
+    {
+        name: "Fitness Tracker",
+        description: "Kişisel fitness takip uygulaması. Egzersiz planları ve beslenme takibi.",
+        tech: ["Flutter", "Firebase", "ML Kit"],
+        appStore: "https://apps.apple.com/app/id456",
+        playStore: "https://play.google.com/store/apps/details?id=456",
+        image: "images/apps/fitness/icon.png",
+        screenshots: [
+            "/images/apps/ai-chat/ss2.png",
+            "/images/apps/fitness/screenshot-2.png",
+            "/images/apps/fitness/screenshot-3.png"
+        ]
     }
 ]; 
