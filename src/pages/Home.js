@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { motion } from 'framer-motion';
@@ -7,6 +7,7 @@ import { PyTorchIcon, TensorFlowIcon, NLPIcon, ComputerVisionIcon, DeepLearningI
 import { getAllPosts } from '../utils/blogUtils';
 import { featuredProjects } from '../data/featuredProjects';
 import Header from '../components/Header';
+import { FaTwitter, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const TechTag = ({ icon: Icon, text }) => (
     <motion.div
@@ -21,7 +22,32 @@ const TechTag = ({ icon: Icon, text }) => (
 
 const Home = () => {
     const { isDark, toggleTheme } = useTheme();
-    const recentPosts = getAllPosts().slice(0, 3); // Son 3 blog yazısı
+    const allPosts = getAllPosts();
+    const [currentPostPage, setCurrentPostPage] = useState(0);
+    const [currentProjectPage, setCurrentProjectPage] = useState(0);
+    const itemsPerPage = 3;
+    
+    const totalPostPages = Math.ceil(allPosts.length / itemsPerPage);
+    const totalProjectPages = Math.ceil(featuredProjects.length / itemsPerPage);
+
+    const nextPostPage = () => {
+        setCurrentPostPage((prev) => (prev + 1) % totalPostPages);
+    };
+
+    const prevPostPage = () => {
+        setCurrentPostPage((prev) => (prev - 1 + totalPostPages) % totalPostPages);
+    };
+
+    const nextProjectPage = () => {
+        setCurrentProjectPage((prev) => (prev + 1) % totalProjectPages);
+    };
+
+    const prevProjectPage = () => {
+        setCurrentProjectPage((prev) => (prev - 1 + totalProjectPages) % totalProjectPages);
+    };
+
+    const currentPosts = allPosts.slice(currentPostPage * itemsPerPage, (currentPostPage + 1) * itemsPerPage);
+    const currentProjects = featuredProjects.slice(currentProjectPage * itemsPerPage, (currentProjectPage + 1) * itemsPerPage);
 
     const navItems = [
         { path: 'about', label: 'Hakkımda' },
@@ -94,9 +120,40 @@ const Home = () => {
                                     transition={{ delay: 0.4 }}
                                     className="flex-1 text-center md:text-left"
                                 >
-                                    <h1 className="text-2xl font-bold mb-2">
-                                        <span className="text-red-500">Hello</span>, I'm Efe 👋
-                                    </h1>
+                                    <div className="flex justify-between items-center mb-2">
+                                        <h1 className="text-2xl font-bold">
+                                            <span className="text-red-500">Hello</span>, I'm Efe 👋
+                                        </h1>
+                                        <div className="flex items-center gap-3">
+                                            <a
+                                                href="https://github.com/efe-atas"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={`text-base ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors duration-300`}
+                                                title="GitHub"
+                                            >
+                                                <GitHubIcon className="w-5 h-5" />
+                                            </a>
+                                            <a
+                                                href="https://linkedin.com/in/efeatas"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={`text-base ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors duration-300`}
+                                                title="LinkedIn"
+                                            >
+                                                <LinkedInIcon className="w-5 h-5" />
+                                            </a>
+                                            <a
+                                                href="https://twitter.com/efeatas"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={`text-base ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors duration-300`}
+                                                title="Twitter"
+                                            >
+                                                <FaTwitter className="w-5 h-5" />
+                                            </a>
+                                        </div>
+                                    </div>
                                     <p className={`leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
                                         I'm a software engineer specializing in Artificial Intelligence and Machine Learning.
                                         I develop projects in deep learning, natural language processing, and computer vision,
@@ -132,58 +189,98 @@ const Home = () => {
                                 </motion.div>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {featuredProjects.map((project, index) => (
-                                    <motion.article
-                                        key={project.name}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: index * 0.1 }}
-                                        whileHover={{ y: -5, scale: 1.02 }}
-                                        className={`group relative rounded-xl overflow-hidden shadow-lg ${
-                                            isDark ? 'bg-gray-900/30 hover:bg-gray-900/50' : 'bg-gray-100 hover:bg-gray-200'
-                                        }`}
-                                    >
-                                        {project.image && (
-                                            <div className="relative h-48 overflow-hidden">
-                                                <img
-                                                    src={project.image}
-                                                    alt={project.name}
-                                                    className="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-110"
-                                                />
-                                            </div>
-                                        )}
-                                        <div className="p-5">
-                                            <h3 className="text-lg font-bold mb-2 flex items-center gap-2">
-                                                {project.name}
-                                                <motion.a
-                                                    whileHover={{ scale: 1.1 }}
-                                                    href={project.github}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className={isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'}
-                                                >
-                                                    <GitHubIcon className="w-4 h-4" />
-                                                </motion.a>
-                                            </h3>
-                                            <p className={`text-sm mb-4 line-clamp-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                                                {project.description}
-                                            </p>
-                                            <div className="flex flex-wrap gap-2">
-                                                {project.tech.slice(0, 3).map((tech, techIndex) => (
-                                                    <span
-                                                        key={techIndex}
-                                                        className={`px-2 py-1 text-xs rounded-full ${
-                                                            isDark ? 'bg-gray-800 text-gray-300' : 'bg-gray-200 text-gray-700'
-                                                        }`}
+                            <div className="relative">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {currentProjects.map((project, index) => (
+                                        <motion.article
+                                            key={project.name}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: index * 0.1 }}
+                                            whileHover={{ y: -5, scale: 1.02 }}
+                                            className={`group relative rounded-xl overflow-hidden shadow-lg border border-red-500/30 hover:border-red-500 transition-colors duration-300 ${
+                                                isDark ? 'bg-gray-900/30 hover:bg-gray-900/50' : 'bg-gray-100 hover:bg-gray-200'
+                                            }`}
+                                        >
+                                            {project.image && (
+                                                <div className="relative h-48 overflow-hidden">
+                                                    <img
+                                                        src={project.image}
+                                                        alt={project.name}
+                                                        className="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-110"
+                                                    />
+                                                </div>
+                                            )}
+                                            <div className="p-5">
+                                                <h3 className="text-lg font-bold mb-2 flex items-center gap-2">
+                                                    {project.name}
+                                                    <motion.a
+                                                        whileHover={{ scale: 1.1 }}
+                                                        href={project.github}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className={isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'}
                                                     >
-                                                        {tech}
-                                                    </span>
-                                                ))}
+                                                        <GitHubIcon className="w-4 h-4" />
+                                                    </motion.a>
+                                                </h3>
+                                                <p className={`text-sm mb-4 line-clamp-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                                    {project.description}
+                                                </p>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {project.tech.slice(0, 3).map((tech, techIndex) => (
+                                                        <span
+                                                            key={techIndex}
+                                                            className={`px-2 py-1 text-xs rounded-full ${
+                                                                isDark ? 'bg-gray-800 text-gray-300' : 'bg-gray-200 text-gray-700'
+                                                            }`}
+                                                        >
+                                                            {tech}
+                                                        </span>
+                                                    ))}
+                                                </div>
                                             </div>
+                                        </motion.article>
+                                    ))}
+                                </div>
+
+                                {/* Navigation Controls */}
+                                {featuredProjects.length > itemsPerPage && (
+                                    <>
+                                        {/* Navigation Buttons */}
+                                        <button
+                                            onClick={prevProjectPage}
+                                            className={`absolute -left-12 top-1/2 -translate-y-1/2 p-2 rounded-full ${
+                                                isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'
+                                            } shadow-lg hover:bg-red-500 hover:text-white transition-colors`}
+                                        >
+                                            <FaChevronLeft className="w-5 h-5" />
+                                        </button>
+                                        <button
+                                            onClick={nextProjectPage}
+                                            className={`absolute -right-12 top-1/2 -translate-y-1/2 p-2 rounded-full ${
+                                                isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'
+                                            } shadow-lg hover:bg-red-500 hover:text-white transition-colors`}
+                                        >
+                                            <FaChevronRight className="w-5 h-5" />
+                                        </button>
+
+                                        {/* Page Indicators */}
+                                        <div className="flex justify-center gap-2 mt-6">
+                                            {[...Array(totalProjectPages)].map((_, index) => (
+                                                <button
+                                                    key={index}
+                                                    onClick={() => setCurrentProjectPage(index)}
+                                                    className={`w-2 h-2 rounded-full transition-colors ${
+                                                        index === currentProjectPage 
+                                                            ? 'bg-red-500' 
+                                                            : isDark ? 'bg-gray-600' : 'bg-gray-300'
+                                                    }`}
+                                                />
+                                            ))}
                                         </div>
-                                    </motion.article>
-                                ))}
+                                    </>
+                                )}
                             </div>
                         </motion.section>
 
@@ -205,77 +302,100 @@ const Home = () => {
                                 </motion.div>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {recentPosts.map((post, index) => (
-                                    <motion.article
-                                        key={post.slug}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: index * 0.1 }}
-                                        whileHover={{ y: -5, scale: 1.02 }}
-                                        className={`group relative rounded-xl overflow-hidden shadow-lg ${
-                                            isDark ? 'bg-gray-900/30 hover:bg-gray-900/50' : 'bg-gray-100 hover:bg-gray-200'
-                                        }`}
-                                    >
-                                        {post.frontmatter.image ? (
-                                            <div className="relative h-48 overflow-hidden">
-                                                <img
-                                                    src={post.frontmatter.image}
-                                                    alt={post.frontmatter.title}
-                                                    className="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-110"
-                                                />
-                                            </div>
-                                        ) : (
-                                            <div className="relative h-48 overflow-hidden bg-gradient-to-br from-red-500/80 to-red-600/80">
-                                                <div className="absolute inset-0 flex items-center justify-center">
-                                                    <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-sm">
-                                                        {post.frontmatter.category === 'Yapay Zeka' && (
-                                                            <DeepLearningIcon className="w-8 h-8 text-white" />
-                                                        )}
-                                                        {post.frontmatter.category === 'Düşünceler' && (
-                                                            <span className="text-3xl text-white">💭</span>
-                                                        )}
+                            <div className="relative">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {currentPosts.map((post, index) => (
+                                        <motion.article
+                                            key={post.slug}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: index * 0.1 }}
+                                            whileHover={{ y: -5, scale: 1.02 }}
+                                            className={`group relative rounded-xl overflow-hidden shadow-lg border border-red-500/30 hover:border-red-500 transition-colors duration-300 ${
+                                                isDark ? 'bg-gray-900/30 hover:bg-gray-900/50' : 'bg-gray-100 hover:bg-gray-200'
+                                            }`}
+                                        >
+                                            {post.frontmatter.image ? (
+                                                <div className="relative h-48 overflow-hidden">
+                                                    <img
+                                                        src={post.frontmatter.image}
+                                                        alt={post.frontmatter.title}
+                                                        className="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-110"
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <div className="relative h-48 overflow-hidden bg-gradient-to-br from-red-500/80 to-red-600/80">
+                                                    <div className="absolute inset-0 flex items-center justify-center">
+                                                        <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-sm">
+                                                            {post.frontmatter.category === 'Yapay Zeka' && (
+                                                                <DeepLearningIcon className="w-8 h-8 text-white" />
+                                                            )}
+                                                            {post.frontmatter.category === 'Düşünceler' && (
+                                                                <span className="text-3xl text-white">💭</span>
+                                                            )}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/30 to-transparent"></div>
+                                            )}
+                                            <div className="p-5">
+                                                <div className="flex items-center gap-2 mb-2">
+                                                    <span className="px-2 py-1 text-xs rounded bg-red-500 text-white">
+                                                        {post.frontmatter.category}
+                                                    </span>
+                                                    <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                                                        {post.date}
+                                                    </span>
+                                                </div>
+                                                <Link to={`/blog/${post.slug}`}>
+                                                    <h3 className="text-lg font-bold mb-2 group-hover:text-red-500 transition-colors">
+                                                        {post.frontmatter.title}
+                                                    </h3>
+                                                    <p className={`text-sm mb-4 line-clamp-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                                        {post.frontmatter.description}
+                                                    </p>
+                                                </Link>
                                             </div>
-                                        )}
-                                        <div className="p-5">
-                                            <div className="flex items-center gap-2 mb-2">
-                                                <span className="px-2 py-1 text-xs rounded bg-red-500 text-white">
-                                                    {post.frontmatter.category}
-                                                </span>
-                                                <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                                                    {post.date}
-                                                </span>
-                                            </div>
-                                            <Link to={`/blog/${post.slug}`}>
-                                                <h3 className="text-lg font-bold mb-2 group-hover:text-red-500 transition-colors">
-                                                    {post.frontmatter.title}
-                                                </h3>
-                                                <p className={`text-sm mb-4 line-clamp-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                                                    {post.frontmatter.description}
-                                                </p>
-                                            </Link>
-                                            <div className="flex items-center justify-between">
-                                                <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                                                    {post.readTime} min read
-                                                </span>
-                                                {post.frontmatter.github && (
-                                                    <motion.a
-                                                        href={post.frontmatter.github}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className={isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'}
-                                                        whileHover={{ scale: 1.1 }}
-                                                    >
-                                                        <GitHubIcon className="w-4 h-4" />
-                                                    </motion.a>
-                                                )}
-                                            </div>
+                                        </motion.article>
+                                    ))}
+                                </div>
+
+                                {/* Navigation Controls */}
+                                {allPosts.length > itemsPerPage && (
+                                    <>
+                                        {/* Navigation Buttons */}
+                                        <button
+                                            onClick={prevPostPage}
+                                            className={`absolute -left-12 top-1/2 -translate-y-1/2 p-2 rounded-full ${
+                                                isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'
+                                            } shadow-lg hover:bg-red-500 hover:text-white transition-colors`}
+                                        >
+                                            <FaChevronLeft className="w-5 h-5" />
+                                        </button>
+                                        <button
+                                            onClick={nextPostPage}
+                                            className={`absolute -right-12 top-1/2 -translate-y-1/2 p-2 rounded-full ${
+                                                isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'
+                                            } shadow-lg hover:bg-red-500 hover:text-white transition-colors`}
+                                        >
+                                            <FaChevronRight className="w-5 h-5" />
+                                        </button>
+
+                                        {/* Page Indicators */}
+                                        <div className="flex justify-center gap-2 mt-6">
+                                            {[...Array(totalPostPages)].map((_, index) => (
+                                                <button
+                                                    key={index}
+                                                    onClick={() => setCurrentPostPage(index)}
+                                                    className={`w-2 h-2 rounded-full transition-colors ${
+                                                        index === currentPostPage 
+                                                            ? 'bg-red-500' 
+                                                            : isDark ? 'bg-gray-600' : 'bg-gray-300'
+                                                    }`}
+                                                />
+                                            ))}
                                         </div>
-                                    </motion.article>
-                                ))}
+                                    </>
+                                )}
                             </div>
                         </motion.section>
 

@@ -8,6 +8,7 @@ import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { FaGithub, FaTwitter, FaLinkedin, FaShare } from 'react-icons/fa';
 
 const BlogPost = () => {
     const { isDark, toggleTheme } = useTheme();
@@ -20,6 +21,23 @@ const BlogPost = () => {
             setCopySuccess('Kopyalandı!');
             setTimeout(() => setCopySuccess(''), 2000);
         });
+    };
+
+    const handleShare = async () => {
+        try {
+            if (navigator.share) {
+                await navigator.share({
+                    title: post.frontmatter.title,
+                    text: post.frontmatter.description,
+                    url: window.location.href,
+                });
+            } else {
+                await navigator.clipboard.writeText(window.location.href);
+                alert('Bağlantı kopyalandı!');
+            }
+        } catch (error) {
+            console.error('Paylaşım sırasında hata oluştu:', error);
+        }
     };
 
     useEffect(() => {
@@ -183,6 +201,44 @@ const BlogPost = () => {
                                 <span className={isDark ? 'text-gray-400' : 'text-gray-600'}>
                                     {post.readTime} minutes reading
                                 </span>
+                            </div>
+                            <div className="flex items-center justify-center gap-4 mt-4">
+                                {post.frontmatter.github && (
+                                    <a
+                                        href={post.frontmatter.github}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-2xl text-gray-600 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-500 transition-colors duration-300"
+                                        title="GitHub"
+                                    >
+                                        <FaGithub />
+                                    </a>
+                                )}
+                                <a
+                                    href="https://twitter.com/efeatas"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-2xl text-gray-600 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-500 transition-colors duration-300"
+                                    title="Twitter"
+                                >
+                                    <FaTwitter />
+                                </a>
+                                <a
+                                    href="https://linkedin.com/in/efeatas"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-2xl text-gray-600 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-500 transition-colors duration-300"
+                                    title="LinkedIn"
+                                >
+                                    <FaLinkedin />
+                                </a>
+                                <button
+                                    onClick={handleShare}
+                                    className="text-2xl text-gray-600 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-500 transition-colors duration-300"
+                                    title="Paylaş"
+                                >
+                                    <FaShare />
+                                </button>
                             </div>
                         </div>
                     </header>

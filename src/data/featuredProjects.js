@@ -25,6 +25,15 @@ export const featuredProjects = [
         demo: "https://efeatas.dev",
         image: "images/projects/ss2.png",
         category: "frontend"
+    },
+    {
+        name: "Face AI App",
+        description: "Face AI App is a Flutter based application that uses OpenAI and Tensorflow to build this project.",
+        tech: ["Tensorflow", "OpenAI", "Flutter"],
+        github: "https://github.com/efe-atas/face_ai_app",
+        demo: "https://efeatas.dev",
+        image: "images/projects/ss2.png",
+        category: "frontend"
     }
 ];
 
