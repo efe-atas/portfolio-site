@@ -62,20 +62,20 @@ const BlogPost = () => {
     }
 
     const customComponents = {
-        h1: ({node, ...props}) => (
-            <h1 {...props} className="text-3xl font-bold mt-8 mb-4 text-red-500" />
+        h1: ({node, children, ...props}) => (
+            <h1 {...props} className="text-3xl font-bold mt-8 mb-4 text-red-500">{children}</h1>
         ),
-        h2: ({node, ...props}) => (
-            <h2 {...props} className="text-2xl font-bold mt-6 mb-3 text-red-500" />
+        h2: ({node, children, ...props}) => (
+            <h2 {...props} className="text-2xl font-bold mt-6 mb-3 text-red-500">{children}</h2>
         ),
-        h3: ({node, ...props}) => (
-            <h3 {...props} className="text-xl font-bold mt-4 mb-2 text-red-500" />
+        h3: ({node, children, ...props}) => (
+            <h3 {...props} className="text-xl font-bold mt-4 mb-2 text-red-500">{children}</h3>
         ),
         p: ({node, ...props}) => (
             <p {...props} className="my-4 leading-relaxed" />
         ),
-        a: ({node, ...props}) => (
-            <a {...props} className="text-red-500 hover:text-red-600 underline" target="_blank" rel="noopener noreferrer" />
+        a: ({node, children, ...props}) => (
+            <a {...props} className="text-red-500 hover:text-red-600 underline" target="_blank" rel="noopener noreferrer">{children}</a>
         ),
         code: ({node, inline, className, children, ...props}) => {
             const match = /language-(\w+)/.exec(className || '');
@@ -125,8 +125,8 @@ const BlogPost = () => {
         blockquote: ({node, ...props}) => (
             <blockquote {...props} className="border-l-4 border-red-500 pl-4 my-4 italic" />
         ),
-        img: ({node, ...props}) => (
-            <img {...props} className="max-w-full h-auto rounded-lg my-4" loading="lazy" />
+        img: ({node, alt, ...props}) => (
+            <img {...props} alt={alt || ''} className="max-w-full h-auto rounded-lg my-4" loading="lazy" />
         ),
         table: ({node, ...props}) => (
             <div className="overflow-x-auto my-4">

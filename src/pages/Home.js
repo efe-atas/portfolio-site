@@ -21,7 +21,7 @@ const TechTag = ({ icon: Icon, text }) => (
 );
 
 const Home = () => {
-    const { isDark, toggleTheme } = useTheme();
+    const { isDark } = useTheme();
     const allPosts = getAllPosts();
     const [currentPostPage, setCurrentPostPage] = useState(0);
     const [currentProjectPage, setCurrentProjectPage] = useState(0);
@@ -49,12 +49,6 @@ const Home = () => {
     const currentPosts = allPosts.slice(currentPostPage * itemsPerPage, (currentPostPage + 1) * itemsPerPage);
     const currentProjects = featuredProjects.slice(currentProjectPage * itemsPerPage, (currentProjectPage + 1) * itemsPerPage);
 
-    const navItems = [
-        { path: 'about', label: 'Hakkımda' },
-        { path: 'blog', label: 'Blog' },
-        { path: 'apps', label: 'Uygulamalar' },
-        { path: 'contact', label: 'İletişim' },
-    ];
 
     const socialLinks = [
         { 
